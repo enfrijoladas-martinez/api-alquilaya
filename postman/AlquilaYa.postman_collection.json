@@ -1,0 +1,1143 @@
+{
+  "info": {
+    "name": "AlquilaYa API - Reto 1 SOA",
+    "description": "API REST de AlquilaYa S.A. (Spring Boot + MySQL). Ejecuta las carpetas en orden: 6 · Flujo completo prueba el ciclo Pendiente -> Activo -> Completado.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    },
+    {
+      "key": "rentalId",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "1 · Oficinas (RentalOffice)",
+      "item": [
+        {
+          "name": "Listar oficinas",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/offices",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "offices"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Obtener oficina por id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/offices/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "offices",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Crear oficina",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"officeName\": \"AlquilaYa Cali\",\n  \"address\": \"Av. 6N # 23-45\",\n  \"city\": \"Cali\",\n  \"region\": \"Valle del Cauca\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/offices",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "offices"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Actualizar oficina",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"officeName\": \"AlquilaYa Centro Histórico\",\n  \"address\": \"Calle 10 # 5-20\",\n  \"city\": \"Bogotá\",\n  \"region\": \"Cundinamarca\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/offices/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "offices",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Buscar por ciudad",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/offices/city/Bogotá",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "offices",
+                "city",
+                "Bogotá"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Buscar por región",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/offices/region/Antioquia",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "offices",
+                "region",
+                "Antioquia"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Eliminar oficina (falla si tiene vehículos)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/offices/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "offices",
+                "1"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2 · Vehículos (Vehicle)",
+      "item": [
+        {
+          "name": "Listar vehículos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/vehicles",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vehicles"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Obtener vehículo por id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/vehicles/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vehicles",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Detalle del vehículo (obtenerDetalle)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/vehicles/1/detalle",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vehicles",
+                "1",
+                "detalle"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Crear vehículo",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"make\": \"Toyota\",\n  \"model\": \"Corolla\",\n  \"year\": 2024,\n  \"licensePlate\": \"ABC123\",\n  \"dailyRate\": 50,\n  \"office\": {\n    \"id\": 1\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/vehicles",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vehicles"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Crear vehículo con placa repetida (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"make\": \"Mazda\",\n  \"model\": \"3\",\n  \"year\": 2023,\n  \"licensePlate\": \"1234ABC\",\n  \"dailyRate\": 45,\n  \"office\": {\n    \"id\": 1\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/vehicles",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vehicles"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Actualizar vehículo",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"make\": \"Honda\",\n  \"model\": \"CB650R\",\n  \"year\": 2022,\n  \"licensePlate\": \"5678DEF\",\n  \"dailyRate\": 32,\n  \"office\": {\n    \"id\": 2\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/vehicles/2",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vehicles",
+                "2"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Cambiar estado a Mantenimiento",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/vehicles/2/status/Mantenimiento",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vehicles",
+                "2",
+                "status",
+                "Mantenimiento"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Cambiar estado a Disponible",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/vehicles/2/status/Disponible",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vehicles",
+                "2",
+                "status",
+                "Disponible"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Vehículos disponibles",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/vehicles/status/Disponible",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vehicles",
+                "status",
+                "Disponible"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Vehículos por oficina",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/vehicles/office/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vehicles",
+                "office",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Eliminar vehículo",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/vehicles/6",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vehicles",
+                "6"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3 · Clientes (Customer)",
+      "item": [
+        {
+          "name": "Listar clientes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/customers",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "customers"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Obtener cliente por id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/customers/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "customers",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Detalle del cliente (obtenerDetalle)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/customers/1/detalle",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "customers",
+                "1",
+                "detalle"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Buscar por email",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/customers/email/ana@correo.es",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "customers",
+                "email",
+                "ana@correo.es"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Crear cliente",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Pedro\",\n  \"lastName\": \"Gómez\",\n  \"email\": \"pedro@correo.com\",\n  \"driversLicense\": \"LIC-0004\",\n  \"phone\": \"3115550000\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/customers",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "customers"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Crear cliente con email repetido (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Otra\",\n  \"lastName\": \"Ana\",\n  \"email\": \"ana@correo.es\",\n  \"driversLicense\": \"LIC-9999\",\n  \"phone\": \"3000000000\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/customers",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "customers"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Actualizar cliente",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Luis\",\n  \"lastName\": \"Martínez\",\n  \"email\": \"luis.martinez@correo.es\",\n  \"driversLicense\": \"LIC-0002\",\n  \"phone\": \"3109876543\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/customers/2",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "customers",
+                "2"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Eliminar cliente (falla si tiene alquileres)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/customers/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "customers",
+                "1"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "4 · Alquileres (Rental)",
+      "item": [
+        {
+          "name": "Listar alquileres",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/rentals",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "rentals"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Obtener alquiler por id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/rentals/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "rentals",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Detalle del alquiler (obtenerDetalle)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/rentals/1/detalle",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "rentals",
+                "1",
+                "detalle"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Crear alquiler (calcula totalPrice)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"vehicle\": {\n    \"id\": 4\n  },\n  \"customer\": {\n    \"id\": 3\n  },\n  \"rentalDate\": \"2026-11-01\",\n  \"returnDate\": \"2026-11-08\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/rentals",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "rentals"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Crear alquiler con fechas cruzadas (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"vehicle\": {\n    \"id\": 3\n  },\n  \"customer\": {\n    \"id\": 1\n  },\n  \"rentalDate\": \"2026-10-11\",\n  \"returnDate\": \"2026-10-12\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/rentals",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "rentals"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Crear alquiler de vehículo en mantenimiento (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"vehicle\": {\n    \"id\": 5\n  },\n  \"customer\": {\n    \"id\": 1\n  },\n  \"rentalDate\": \"2026-11-01\",\n  \"returnDate\": \"2026-11-03\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/rentals",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "rentals"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Actualizar alquiler Pendiente (recalcula precio)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"vehicle\": {\n    \"id\": 3\n  },\n  \"customer\": {\n    \"id\": 2\n  },\n  \"rentalDate\": \"2026-10-10\",\n  \"returnDate\": \"2026-10-15\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/rentals/2",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "rentals",
+                "2"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Iniciar alquiler (Pendiente -> Activo)",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/rentals/2/start",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "rentals",
+                "2",
+                "start"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Completar alquiler (Activo -> Completado)",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/rentals/2/complete",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "rentals",
+                "2",
+                "complete"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Alquileres por cliente",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/rentals/customer/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "rentals",
+                "customer",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Alquileres por vehículo",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/rentals/vehicle/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "rentals",
+                "vehicle",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Alquileres por estado",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/rentals/status/Pendiente",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "rentals",
+                "status",
+                "Pendiente"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Eliminar alquiler",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/rentals/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "rentals",
+                "1"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "5 · Mantenimientos (Maintenance)",
+      "item": [
+        {
+          "name": "Listar mantenimientos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/maintenances",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "maintenances"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Obtener mantenimiento por id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/maintenances/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "maintenances",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Historial de un vehículo",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/maintenances/vehicle/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "maintenances",
+                "vehicle",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Registrar mantenimiento",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"vehicle\": {\n    \"id\": 2\n  },\n  \"maintenanceDate\": \"2026-10-05\",\n  \"description\": \"Cambio de llantas\",\n  \"cost\": 210,\n  \"mileage\": 18400\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/maintenances",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "maintenances"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Actualizar mantenimiento",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"vehicle\": {\n    \"id\": 1\n  },\n  \"maintenanceDate\": \"2026-08-15\",\n  \"description\": \"Cambio de aceite, filtros y bujías\",\n  \"cost\": 99.9,\n  \"mileage\": 15200\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/maintenances/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "maintenances",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Eliminar mantenimiento",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/maintenances/3",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "maintenances",
+                "3"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "6 · Flujo completo de un alquiler",
+      "item": [
+        {
+          "name": "1. Ver vehículos disponibles",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/vehicles/status/Disponible",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vehicles",
+                "status",
+                "Disponible"
+              ]
+            }
+          }
+        },
+        {
+          "name": "2. Reservar Seat León 7 días (Pendiente)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"vehicle\": {\n    \"id\": 1\n  },\n  \"customer\": {\n    \"id\": 2\n  },\n  \"rentalDate\": \"2026-12-01\",\n  \"returnDate\": \"2026-12-08\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/rentals",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "rentals"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.collectionVariables.set(\"rentalId\", pm.response.json().id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "3. Recoger vehículo (Activo, vehículo Alquilado)",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/rentals/{{rentalId}}/start",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "rentals",
+                "{{rentalId}}",
+                "start"
+              ]
+            }
+          }
+        },
+        {
+          "name": "4. Comprobar vehículo Alquilado",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/vehicles/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vehicles",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "5. Devolver vehículo (Completado, vehículo Disponible)",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/rentals/{{rentalId}}/complete",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "rentals",
+                "{{rentalId}}",
+                "complete"
+              ]
+            }
+          }
+        },
+        {
+          "name": "6. Comprobar vehículo Disponible",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/vehicles/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vehicles",
+                "1"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
